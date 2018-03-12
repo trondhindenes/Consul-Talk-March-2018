@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: client-base-configmap
+data:
+  agent.json: |
+    {
+      "log_level": "DEBUG"
+    }

@@ -1,0 +1,20 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: client-watcher-configmap
+data:
+  agent.json: |
+    {
+      "log_level": "DEBUG",
+      "enable_script_checks": true
+    }
+  service_watcher.json: |
+    {
+      "watches": [{
+        "type": "service",
+        "service": "nginx",
+        "handler_type": "script",
+        "args": ["/bin/bash", "-c", "echo A DISTURBANCE IN THE FORCE!!"]
+      }]
+    }

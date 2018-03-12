@@ -1,0 +1,1 @@
+docker build -t consul_client_base:1.0.0 .

@@ -1,0 +1,20 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: client-kvwatcher-configmap
+data:
+  agent.json: |
+    {
+      "log_level": "DEBUG",
+      "enable_script_checks": true
+    }
+  service_watcher.json: |
+    {
+      "watches": [{
+        "type": "key",
+        "key": "foo/bar/baz",
+        "handler_type": "script",
+        "args": ["/bin/bash", "-c", "echo A KEY HAS CHANGED!!"]
+      }]
+    }

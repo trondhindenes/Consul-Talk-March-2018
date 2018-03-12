@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consul-client-nginx
+  labels:
+    app: consul-client-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consul-client-nginx
+  template:
+    metadata:
+      labels:
+        app: consul-client-nginx
+    spec:
+      containers:
+      - name: consul-client-nginx
+        image: consul_client_nginx:1.0.0
+        env:
+          - name: POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+          - name: NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - consul leave
+        volumeMounts:
+          - name: client-nginx-configmap
+            mountPath: /consul/config
+      volumes:
+        - name: client-nginx-configmap
+          configMap:
+            name: client-nginx-configmap

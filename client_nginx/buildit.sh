@@ -1,0 +1,1 @@
+docker build -t consul_client_nginx:1.0.0 .
